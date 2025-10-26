@@ -36,6 +36,10 @@ jobs:
           name: cv
           path: .
 
+      - name: Add redirect index.html
+        run: echo '<meta http-equiv="refresh" content="0; url=./cv.pdf">' > index.html
+
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
