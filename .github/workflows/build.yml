@@ -12,11 +12,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install LaTeX
-        run: sudo apt-get update && sudo apt-get install -y texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra
-
       - name: Build PDF
-        run: make all
+        uses: xu-cheng/texlive-action@v3
+        with:
+          run: make build
 
       - name: Rename PDF
         run: mv main.pdf cv.pdf
