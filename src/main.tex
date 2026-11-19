@@ -6,6 +6,10 @@
 \usepackage{lmodern}
 \usepackage{titlesec}
 \usepackage{etoolbox}
+\usepackage{xcolor}
+\usepackage[colorlinks=true, urlcolor=linkblue]{hyperref}
+
+\definecolor{linkblue}{RGB}{20, 40, 120}  % dark blue
 
 \pagestyle{empty}  % No page numbers
 \renewcommand{\familydefault}{\rmdefault}  % Use Serif
@@ -31,14 +35,21 @@
 \setlength{\cvitemsep}{0.35em}
 
 % \cventry{date}{title}{institution}{location}{grade}{description}
-\newcommand{\cventry}[6]{
+\newcommand{\cventry}[6]{%
   \noindent
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l r @{}}
-    \textbf{#2} & \textit{#4} \\                       % title | location
-    \textit{#3}, #1 & \ifblank{#5}{}{#5} \\            % institution, date | grade
-    \ifblank{#6}{}{\multicolumn{2}{@{}p{\textwidth}@{}}{\small #6} \\}  % description
-  \end{tabular*}
-  \par\addvspace{\cvitemsep}
+    % Row 1: title | location
+    \textbf{#2} & \textit{#4}%
+    % Row 2: institution, date | grade (rendered only if at least one of #3, #1, #5 is non-empty)
+    \ifblank{#3#1#5}{}{%
+      \\ \ifblank{#3}{}{\textit{#3}\ifblank{#1}{}{, }}#1 & #5%
+    }%
+    % Row 3: description (rendered only if #6 is non-empty; \\ comes right before \multicolumn)
+    \ifblank{#6}{}{%
+      \\ \multicolumn{2}{@{}p{\textwidth}@{}}{\small #6}%
+    }%
+  \end{tabular*}%
+  \par\addvspace{\cvitemsep}%
 }
 
 % \cvitem{label}{content}
@@ -66,12 +77,17 @@
 
 \begin{center}
     {\Huge \textbf{Kirill Trofimov}} \\[0.3em]
-    {\small \textit{Astana, Kazakhstan} \quad \textit{+7 (705) 890 28 14} \quad \textit{kitrofimov39@gmail.com}}
+    {\small 
+        \textit{Vienna, Austria} \quad
+        \textit{\href{https://github.com/kitrofimov}{github.com/kitrofimov}} \quad
+        \textit{kitrofimov39@gmail.com}
+    }
 \end{center}
 
-\input{src/education}
+\input{src/projects}
 \input{src/awards}
-\input{src/languages_and_skills}
+\input{src/education}
+\input{src/skills_and_languages}
 
 \end{document}
 
